@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKGGaming | Game Servers</title>
+    <style>
+        :root {
+            --bg-color: #121820;
+            --card-bg: #1c2633;
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+            
+            /* Game Accents */
+            --valheim-color: #e2a83b;
+            --minecraft-color: #57b157;
+            --rust-color: #cd412b;
+            
+            --btn-text: #121820;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 480px;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .server-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .game-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        /* Unique borders and text accents per game */
+        .valheim-card { border-left: 4px solid var(--valheim-color); }
+        .valheim-card .game-title { color: var(--valheim-color); }
+        .valheim-card .copy-btn { background-color: var(--valheim-color); }
+
+        .minecraft-card { border-left: 4px solid var(--minecraft-color); }
+        .minecraft-card .game-title { color: var(--minecraft-color); }
+        .minecraft-card .copy-btn { background-color: var(--minecraft-color); }
+
+        .rust-card { border-left: 4px solid var(--rust-color); }
+        .rust-card .game-title { color: var(--rust-color); }
+        .rust-card .copy-btn { background-color: var(--rust-color); }
+
+        .ip-address {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            word-break: break-all;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .copy-btn {
+            color: var(--btn-text);
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            filter: brightness(1.15);
+            transform: translateY(-1px);
+        }
+
+        .copy-btn:active {
+            transform: translateY(1px);
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AKGGaming</h1>
+        <p class="subtitle">Join our dedicated game servers</p>
+
+        <!-- Valheim Server Card -->
+        <div class="server-card valheim-card">
+            <div class="game-title">Valheim</div>
+            <div class="ip-address" id="valheimIP">://akggaming.com</div>
+            <button class="copy-btn" id="valheimBtn" onclick="copyIP('valheimIP', 'valheimBtn')">Copy IP Address</button>
+        </div>
+
+        <!-- Minecraft Server Card -->
+        <div class="server-card minecraft-card">
+            <div class="game-title">Minecraft</div>
+            <div class="ip-address" id="mcIP">://akggaming.com</div>
+            <button class="copy-btn" id="mcBtn" onclick="copyIP('mcIP', 'mcBtn')">Copy IP Address</button>
+        </div>
+
+        <!-- Rust Server Card -->
+        <div class="server-card rust-card">
+            <div class="game-title">Rust</div>
+            <div class="ip-address" id="rustIP">://akggaming.com</div>
+            <button class="copy-btn" id="rustBtn" onclick="copyIP('rustIP', 'rustBtn')">Copy IP Address</button>
+        </div>
+
+        <div class="footer">
+            <p>Good luck and have fun out there!</p>
+        </div>
+    </div>
+
+    <script>
+        function copyIP(ipId, btnId) {
+            const ipText = document.getElementById(ipId).innerText;
+            const button = document.getElementById(btnId);
+            const originalText = button.innerText;
+
+            navigator.clipboard.writeText(ipText).then(() => {
+                button.innerText = "✓ Copied!";
+                button.style.backgroundColor = "#2ecc71"; 
+                button.style.color = "#fff";
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = "";
+                    button.style.color = "";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert("Could not automatically copy. Please select the text and copy manually.");
+            });
+        }
+    </script>
+
+</body>
+</html>
